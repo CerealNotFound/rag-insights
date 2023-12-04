@@ -9,8 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
     "chromadb": "^1.6.1",
-    "langchain": "^0.0.197-rc.1",
+    "langchain": "^0.0.200",
     "next": "14.0.3",
     "openai": "^4.20.0",
     "pdf-parse": "^1.1.1",

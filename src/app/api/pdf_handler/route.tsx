@@ -1,38 +1,36 @@
 import { PDFLoader } from "langchain/document_loaders/fs/pdf";
-import { NextResponse } from "next/server";
-import { Chroma } from "langchain/vectorstores/chroma";
+import { SupabaseVectorStore } from "langchain/vectorstores/supabase";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
+import { createClient } from "@supabase/supabase-js/dist/module";
+import { NextResponse } from "next/server";
 
 export const GET = async () => {
+  const client = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL as string,
+    process.env.SUPABASE_PRIVATE_KEY as string
+  );
+
   const loader = new PDFLoader("src/arg_doc/rag-research.pdf");
-  const embedder = new OpenAIEmbeddings({
+  const embeddings = new OpenAIEmbeddings({
     openAIApiKey: process.env.OPENAI_API_KEY as string,
   });
 
+  const docs = await loader.load();
   try {
-    const docs = await loader.load();
-    // return new NextResponse(
-    //   JSON.stringify(
-    //     `Loading of pdf was successful, value of 0th index: ${docs[0].pageContent}`
-    //   )
-    // );
-    const vectorStore = await Chroma.fromDocuments(docs, embedder, {
-      collectionName: "rag-paper",
-      url: "http://localhost:8000", // Optional, will default to this value
-      collectionMetadata: {
-        "hnsw:space": "cosine",
-      }, // Optional, can be used to specify the distance method of the embedding space https://docs.trychroma.com/usage-guide#changing-the-distance-function
+    const store = new SupabaseVectorStore(embeddings, {
+      client,
+      tableName: "documents",
     });
 
+    await store.addDocuments(docs);
+
     return new NextResponse(
-      JSON.stringify(`Successfully added the embedding to chromadb! 😎`)
+      JSON.stringify(`Upload to supabase ran without any errors`)
     );
-  } catch {
-    (err: string) => {
-      console.error(`Error occurred while loading the pdf: ${err}`);
-      return new NextResponse(
-        JSON.stringify(`Error occurred while loading the pdf: ${err}`)
-      );
-    };
+  } catch (err: any) {
+    console.error(`Error occurred while loading the pdf: ${err}`);
+    return new NextResponse(
+      JSON.stringify(`Error occurred while loading the pdf: ${err}`)
+    );
   }
 };

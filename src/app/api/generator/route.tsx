@@ -6,7 +6,7 @@ export const POST = async (req: NextRequest) => {
 
   const model = new OpenAI({
     modelName: "gpt-3.5-turbo-instruct",
-    temperature: 0.7,
+    temperature: 0.6,
   });
 
   try {

@@ -63,7 +63,7 @@ const ChatWrapper = () => {
 
       const seqResponse = await fetch("http://localhost:3000/api/generator", {
         body: JSON.stringify({
-          context: result[0].pageContent,
+          context: result,
           query: userQuery,
         }),
         method: "POST",
