@@ -47,7 +47,7 @@ const ChatWrapper = () => {
 
       appendTexts(userQuery, "receiver");
 
-      const response = await fetch(`${location.origin}/api/retriever`, {
+      const response = await fetch("http://localhost:3000/api/retriever", {
         body: JSON.stringify({
           query: userQuery,
           pdf_id: "200511401",
@@ -61,7 +61,7 @@ const ChatWrapper = () => {
       const result = await response.json();
       console.log(result);
 
-      const seqResponse = await fetch(`${location.origin}/api/generator`, {
+      const seqResponse = await fetch("http://localhost:3000/api/generator", {
         body: JSON.stringify({
           context: result,
           query: userQuery,
