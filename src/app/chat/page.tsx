@@ -79,7 +79,7 @@ const ChatWrapper = () => {
   };
 
   return (
-    <div className="flex flex-col justify-between w-10/12 h-full bg-black">
+    <div className="flex flex-col justify-between w-11/12 bg-black">
       {/* <div className="flex flex-row justify-between items-center p-4"></div> */}
       <div
         id="text-main-div"
@@ -89,7 +89,7 @@ const ChatWrapper = () => {
           return <Text key={text.id} text={text.text} type={text.type} />;
         })}
       </div>
-      <div className="flex flex-row justify-between w-10/12 items-center p-4">
+      <div className="absolute flex flex-row justify-between w-full bottom-14 items-center p-4">
         <input
           id="text-bar"
           placeholder="Type a message..."

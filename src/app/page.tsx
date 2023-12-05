@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useContext, useEffect } from "react";
 import { DocContext } from "@/contexts/docContext";
+import Link from "next/link";
 
 const Home = () => {
   const context = useContext(DocContext);
@@ -38,36 +39,27 @@ const Home = () => {
               Tasks
             </option>
           </select>
-          <form onSubmit={submitHandler}>
-            {/* <input
-              type="password"
-              className="block w-full border border-gray-400 p-2 mb-4 rounded"
-              placeholder="Enter admin key - (optional)"
-            />
-            <input
-              type="text"
-              className="block w-full border border-gray-400 p-2 mb-4 rounded"
-              placeholder="OpenAI key - (not for admin)"
-            /> */}
-            <div className="bg-green-500 cursor-pointer text-white p-2 rounded-full inline-flex items-center">
-              Chat with PDF
-              <input type="submit" />
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                className="w-4 h-4 ml-2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </div>
-          </form>
+          <Link
+            href={"/chat"}
+            className="bg-green-500 cursor-pointer text-white p-2 rounded-full inline-flex items-center"
+          >
+            Chat with PDF
+            <button type="submit" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              className="w-4 h-4 ml-2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </Link>
         </div>
       </div>
     </main>
