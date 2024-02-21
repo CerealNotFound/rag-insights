@@ -37,9 +37,9 @@ const Home = () => {
             type="submit"
             onClick={submitHandler}
             // href={"/chat"}
-            className="bg-green-500 cursor-pointer text-white p-2 rounded-full inline-flex items-center"
+            className="bg-green-500 cursor-pointer text-white p-2 rounded-full"
           >
-            <Link href={"/chat"}>
+            <Link href={"/chat"} className="inline-flex items-center">
               Chat with PDF
               <svg
                 xmlns="http://www.w3.org/2000/svg"
