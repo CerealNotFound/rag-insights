@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useState, useContext, useEffect } from "react";
+import { useRef, useState, useContext } from "react";
 import Text from "@/components/Text";
-import { DocContext } from "@/contexts/docContext";
+import { ApiKeyContext } from "@/contexts/apiKeyContext";
 
 const ChatWrapper = () => {
   const initialTexts = [
@@ -12,6 +12,8 @@ const ChatWrapper = () => {
       type: "sender",
     },
   ];
+
+  const openAIKey = useContext(ApiKeyContext).apiKey;
 
   const [texts, setTexts] = useState(initialTexts);
 
@@ -42,6 +44,7 @@ const ChatWrapper = () => {
         JSON.stringify({
           query: userQuery,
           id: "1",
+          openAIKey: openAIKey,
         })
       );
 
@@ -51,6 +54,7 @@ const ChatWrapper = () => {
         body: JSON.stringify({
           query: userQuery,
           pdf_id: "200511401",
+          openAIKey: openAIKey,
         }),
         method: "POST",
         headers: {
@@ -65,6 +69,7 @@ const ChatWrapper = () => {
         body: JSON.stringify({
           context: result,
           query: userQuery,
+          openAIKey: openAIKey,
         }),
         method: "POST",
         headers: {

@@ -4,9 +4,9 @@ import { supabaseClient } from "@/middleware/supabase";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
-  const { query } = await req.json();
+  const { query, openAIKey } = await req.json();
   const embeddings = new OpenAIEmbeddings({
-    openAIApiKey: process.env.OPENAI_API_KEY as string,
+    openAIApiKey: openAIKey,
   });
 
   const store = new SupabaseVectorStore(embeddings, {
